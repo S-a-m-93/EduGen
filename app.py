@@ -1,13 +1,9 @@
 import streamlit as st
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
 import google.generativeai as genai
 
 from youtube_transcript_api import YouTubeTranscriptApi
-
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Define different prompts
 prompts = {
@@ -29,15 +25,20 @@ def extract_transcript_details(youtube_video_url):
             transcript += " " + i["text"]
         return transcript
     except Exception as e:
-        raise e
+        st.error(f"Error extracting transcript: {e}")
+        return None
 
 
 ## Generating content based on the selected type
 def generate_gemini_content(transcript_text, content_type):
-    prompt = prompts[content_type]
-    model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(prompt + transcript_text)
-    return response.text
+    try:
+        prompt = prompts[content_type]
+        model = genai.GenerativeModel("gemini-pro")
+        response = model.generate_content(prompt + transcript_text)
+        return response.text
+    except Exception as e:
+        st.error(f"Error generating content: {e}")
+        return None
 
 
 st.title("📚 EduGen: Make the most of educational videos")
