@@ -43,6 +43,8 @@ To run this application locally, follow these steps:
 4. **Select the type of content you want to generate (Notes, Summary, Quiz) from the dropdown menu.**
 5. **Click the "Generate Content" button to retrieve and display the content.**
 
+**Note:** For this application to work, the speicific YouTube video must have transcripts available in English language.
+
 ## Acknowledgements
 
 - **Streamlit** for providing an easy-to-use framework for building interactive web applications in Python.
